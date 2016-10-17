@@ -15,9 +15,7 @@ console.log(getAveragePrice())
 function itemsBetween14and18() {
     //filter the items to find the subset of items and return the array
     return items.filter(function(item) {
-        if (item.price > 14.00 && item.price < 18.00) {
-            return item
-        }
+        return (item.price >= 14.00 && item.price <= 18.00)
     })
 
 }
@@ -30,14 +28,13 @@ function getGBPCurrency() {
     var matches = items.filter(function(item){
         return item.currency_code === 'GBP' ? true : false
     })
-
     //transform the matches results to make the title and price sentance
-    var titles = matches.map(function(match) {
-        return `${match.title} costs ${match.price}`
-    })
+        .map(function(match) {
+            return `${match.title} costs ${accounting.formatMoney(match.price, '€')}`
+        })
 
     //to get the formatting of the answer to be correct, only returning the first element in the array (there is only one answer in this case)
-    return titles[0]
+    return matches[0]
 }
 
 console.log(getGBPCurrency())
@@ -46,7 +43,7 @@ console.log(getGBPCurrency())
 function itemsMadeOfWood() {
     //get the items made of wood by filtering the items based on wood being in the material array
     return items.filter(function(item) {
-        return item.materials.includes('wood') ? true : false
+        return item.materials.includes('wood')
     })
         //transform each item from the filtered list to add the is made of wood to it.
         .map(function(woodItem) {
